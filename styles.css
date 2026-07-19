@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500&family=Cormorant+Garamond:wght@300;400&family=Inter:wght@300;400;500&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&display=swap');/* ==============================
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&display=swap');
+/* ==============================
    RESET
 ============================== */
 
@@ -837,6 +838,7 @@ nav a:hover,
     transform: scale(1.02);
 
 }
+
 .archive-notes {
 
     width: min(520px, 90%);
@@ -910,4 +912,148 @@ nav a:hover,
 
     font-weight: 600;
 
+}
+
+/* ==============================
+   ABOUT SECTION
+============================== */
+
+.about {
+    width: min(1180px, 88%);
+    margin: 180px auto;
+
+    display: grid;
+    grid-template-columns: 240px minmax(0, 1fr);
+    gap: 110px;
+    align-items: center;
+}
+
+.about-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.about-image img {
+    width: 200px;
+    height: 200px;
+
+    display: block;
+    object-fit: cover;
+    object-position: center;
+
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+
+    filter: grayscale(100%) contrast(0.95);
+
+    transition:
+        filter 0.8s ease,
+        transform 0.8s ease;
+}
+
+.about-image img:hover {
+    filter: grayscale(0%);
+    transform: scale(1.025);
+}
+
+.about-content {
+    min-width: 0;
+    max-width: 760px;
+}
+
+.about .section-label {
+    margin: 0 0 28px;
+}
+
+.about h2 {
+    margin: 0 0 46px;
+
+    font-family: "Bodoni Moda", serif;
+    font-size: clamp(3rem, 5.2vw, 5.4rem);
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: -0.045em;
+
+    color: #f4f1eb;
+}
+
+.about h2 em {
+    display: block;
+
+    font-style: italic;
+    font-weight: 400;
+
+    color: rgba(244, 241, 235, 0.66);
+}
+
+.about-content p {
+    max-width: 720px;
+    margin: 0 0 28px;
+
+    font-family: "Inter", sans-serif;
+    font-size: 0.9rem;
+    font-weight: 300;
+    line-height: 1.9;
+    letter-spacing: 0.02em;
+
+    color: rgba(244, 241, 235, 0.66);
+}
+
+/* Tablet */
+
+@media screen and (max-width: 1000px) {
+    .about {
+        width: min(900px, 88%);
+        grid-template-columns: 180px minmax(0, 1fr);
+        gap: 70px;
+    }
+
+    .about-image img {
+        width: 165px;
+        height: 165px;
+    }
+
+    .about h2 {
+        font-size: clamp(2.8rem, 6vw, 4.5rem);
+    }
+}
+
+/* Phone */
+
+@media screen and (max-width: 768px) {
+    .about {
+        width: calc(100% - 48px);
+        margin: 120px auto;
+
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 42px;
+    }
+
+    .about-image {
+        order: 2;
+        justify-content: flex-start;
+    }
+
+    .about-image img {
+        width: 135px;
+        height: 135px;
+    }
+
+    .about-content {
+        order: 1;
+        max-width: 100%;
+    }
+
+    .about h2 {
+        font-size: clamp(2.5rem, 12vw, 4rem);
+        margin-bottom: 34px;
+    }
+
+    .about-content p {
+        font-size: 0.84rem;
+        line-height: 1.8;
+    }
 }
