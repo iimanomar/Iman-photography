@@ -1,0 +1,101 @@
+if ("scrollRestoration" in history) {
+    history.scrollRestoration = "manual";
+}
+
+window.addEventListener("load", () => {
+    history.replaceState(
+        null,
+        "",
+        window.location.pathname + window.location.search
+    );
+
+    window.scrollTo(0, 0);
+
+    requestAnimationFrame(() => {
+        window.scrollTo(0, 0);
+        document.body.classList.add("page-loaded");
+    });
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+    /* Typing intro */
+
+    const introLines = document.querySelectorAll(".intro-line span");
+
+    introLines.forEach((line, index) => {
+        const fullText = line.textContent.trim();
+
+        line.textContent = "";
+        line.style.opacity = "1";
+
+        setTimeout(() => {
+            let characterIndex = 0;
+
+            const typingInterval = setInterval(() => {
+                line.textContent += fullText.charAt(characterIndex);
+                characterIndex++;
+
+                if (characterIndex >= fullText.length) {
+                    clearInterval(typingInterval);
+                }
+            }, 55);
+        }, index * 900);
+    });
+
+    /* Custom cursor */
+
+    const cursor = document.querySelector(".cursor");
+
+    document.addEventListener("mousemove", (event) => {
+        if (!cursor) return;
+
+        cursor.style.left = `${event.clientX}px`;
+        cursor.style.top = `${event.clientY}px`;
+    });
+
+    document.querySelectorAll("a, img").forEach((element) => {
+        element.addEventListener("mouseenter", () => {
+            cursor?.classList.add("grow");
+        });
+
+        element.addEventListener("mouseleave", () => {
+            cursor?.classList.remove("grow");
+        });
+    });
+
+    document.documentElement.addEventListener("mouseleave", () => {
+        cursor?.classList.add("hidden");
+    });
+
+    document.documentElement.addEventListener("mouseenter", () => {
+        cursor?.classList.remove("hidden");
+    });
+
+    /* Gallery image reveal */
+
+    const galleryImages = document.querySelectorAll(".photo-wrap img");
+
+    if ("IntersectionObserver" in window) {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    entry.target.classList.toggle(
+                        "in-view",
+                        entry.isIntersecting
+                    );
+                });
+            },
+            {
+                threshold: 0.3
+            }
+        );
+
+        galleryImages.forEach((image) => {
+            observer.observe(image);
+        });
+    } else {
+        galleryImages.forEach((image) => {
+            image.classList.add("in-view");
+        });
+    }
+});
