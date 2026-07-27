@@ -590,37 +590,14 @@ nav a:hover,
     z-index: 9999;
 
 }
-
-.cursor::after {
-    content: "VIEW";
-
-    position: absolute;
-    inset: 0;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    color: white;
-    font-size: 9px;
-    font-family: "Inter", sans-serif;
-    letter-spacing: .15em;
-
-    opacity: 0;
-    transition: opacity .3s ease;
-}
-
 .cursor.grow {
-    width: 90px;
-    height: 90px;
+    width: 55px;
+    height: 55px;
 
-    background: rgba(255, 255, 255, .12);
-    border-color: rgba(255, 255, 255, .5);
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.4);
 }
 
-.cursor.grow::after {
-    opacity: 1;
-}
 
 /* ==============================
    TABLET
@@ -891,16 +868,19 @@ nav a:hover,
     opacity: 1;
 }
 
-.gallery-item:hover img {
-    filter: grayscale(0%) brightness(1);
-    opacity: 1;
+  .gallery-item:hover img {
+      object-fit: contain;
 
-    transform: translateY(-24px) scale(1.045);
+      filter: grayscale(0%) brightness(1);
+      opacity: 1;
 
-    box-shadow:
-        0 30px 70px rgba(0, 0, 0, 0.75);
-}
+      transform: translateY(-12px) scale(1.02);
 
+      background: #000000;
+
+      box-shadow:
+          0 25px 60px rgba(0, 0, 0, 0.7);
+  }
 /* ===========================
    TABLET
 =========================== */
