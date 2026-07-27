@@ -2,15 +2,10 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Gallery | Iman</title>
-
     <link rel="stylesheet" href="styles.css">
-
 </head>
 
 <body>
@@ -22,15 +17,10 @@
         </div>
 
         <nav>
-
             <a href="index.html">Home</a>
-
             <a href="#gallery">Gallery</a>
-
             <a href="index.html#about">About</a>
-
             <a href="index.html#contact">Contact</a>
-
         </nav>
 
     </header>
@@ -44,122 +34,121 @@
             </p>
 
             <h1 class="gallery-title">
-
                 Every photograph
                 <em>in one place.</em>
-
             </h1>
-            
-<div class="gallery-grid">
 
-    <div class="gallery-item">
-        <img src="images/flower.jpg" alt="Flower" data-title="Flower" data-year="2022">
-    </div>
+            <div class="gallery-grid">
 
-    <div class="gallery-item">
-        <img src="images/microscope.jpg" alt="Microscope" data-title="Microscope" data-year="2023">
-    </div>
+                <div class="gallery-item large">
+                    <img src="images/flower.jpg" alt="Flower" data-title="Flower" data-year="2022">
+                </div>
 
-    <div class="gallery-item">
-        <img src="images/horse.jpg" alt="Horse" data-title="Horse" data-year="2025">
-    </div>
+                <div class="gallery-item">
+                    <img src="images/microscope.jpg" alt="Microscope" data-title="Microscope" data-year="2023">
+                </div>
 
-    <div class="gallery-item">
-        <img src="images/plane.jpg" alt="Plane" data-title="Plane" data-year="2024">
-    </div>
+                <div class="gallery-item tall">
+                    <img src="images/horse.jpg" alt="Horse" data-title="Horse" data-year="2025">
+                </div>
 
-    <div class="gallery-item">
-        <img src="images/lake.jpg" alt="Lake" data-title="Lake" data-year="2023">
-    </div>
+                <div class="gallery-item">
+                    <img src="images/plane.jpg" alt="Plane" data-title="Plane" data-year="2024">
+                </div>
 
-    <div class="gallery-item">
-        <img src="images/moon.jpg" alt="Moon" data-title="Moon" data-year="2024">
-    </div>
+                <div class="gallery-item wide">
+                    <img src="images/lake.jpg" alt="Lake" data-title="Lake" data-year="2023">
+                </div>
 
-    <div class="gallery-item">
-        <img src="images/stars.jpg" alt="Stars" data-title="Stars" data-year="2024">
-    </div>
+                <div class="gallery-item">
+                    <img src="images/moon.jpg" alt="Moon" data-title="Moon" data-year="2024">
+                </div>
 
-    <div class="gallery-item">
-        <img src="images/coldplay.jpg" alt="Coldplay" data-title="Coldplay" data-year="2025">
-    </div>
+                <div class="gallery-item tall">
+                    <img src="images/stars.jpg" alt="Stars" data-title="Stars" data-year="2024">
+                </div>
 
-    <div class="gallery-item">
-        <img src="images/ankole.jpg" alt="Ankole" data-title="Ankole" data-year="2025">
-    </div>
+                <div class="gallery-item wide">
+                    <img src="images/coldplay.jpg" alt="Coldplay" data-title="Coldplay" data-year="2025">
+                </div>
 
-    <div class="gallery-item">
-        <img src="images/dxb.jpg" alt="Dubai" data-title="Dubai" data-year="2026">
-    </div>
+                <div class="gallery-item">
+                    <img src="images/ankole.jpg" alt="Ankole" data-title="Ankole" data-year="2025">
+                </div>
 
-    <div class="gallery-item">
-        <img src="images/Mt.kenya.jpg" alt="Mount Kenya" data-title="Mount Kenya" data-year="2026">
-    </div>
+                <div class="gallery-item large">
+                    <img src="images/dxb.jpg" alt="Dubai" data-title="Dubai" data-year="2026">
+                </div>
 
-    <div class="gallery-item">
-        <img src="images/birds.jpg" alt="Birds" data-title="Birds" data-year="2026">
-    </div>
+                <div class="gallery-item wide">
+                    <img src="images/Mt.kenya.jpg" alt="Mount Kenya" data-title="Mount Kenya" data-year="2026">
+                </div>
 
-</div>
+                <div class="gallery-item">
+                    <img src="images/birds.jpg" alt="Birds" data-title="Birds" data-year="2026">
+                </div>
+
+            </div>
+
             <section class="archive-notes">
-            
+
                 <h3>Collections</h3>
-            
+
                 <p>
                     <strong>Collected between 2022–2026.</strong>
                 </p>
-            
+
                 <ul>
                     <li>Nature</li>
                     <li>Microscopy</li>
                     <li>Animals</li>
                     <li>Astronomy</li>
                 </ul>
-            
+
                 <h3>Process</h3>
-            
+
                 <ol>
                     <li>Observe</li>
                     <li>Wait</li>
                     <li>Capture</li>
                 </ol>
-            
+
             </section>
 
+        </section>
+
     </main>
+
     <div class="lightbox" id="lightbox" aria-hidden="true">
-    
-        <button class="lightbox-close" id="lightboxClose" type="button" aria-label="Close image">
+
+        <button class="lightbox-close" id="lightboxClose" type="button">
             ×
         </button>
-    
-        <button class="lightbox-arrow lightbox-previous" id="lightboxPrevious" type="button" aria-label="Previous image">
+
+        <button class="lightbox-arrow lightbox-previous" id="lightboxPrevious" type="button">
             ←
         </button>
-    
+
         <div class="lightbox-content">
-    
+
             <img class="lightbox-image" id="lightboxImage" src="" alt="">
-    
+
             <div class="lightbox-caption">
                 <p id="lightboxTitle"></p>
                 <span id="lightboxYear"></span>
             </div>
-    
+
         </div>
-    
-        <button class="lightbox-arrow lightbox-next" id="lightboxNext" type="button" aria-label="Next image">
+
+        <button class="lightbox-arrow lightbox-next" id="lightboxNext" type="button">
             →
         </button>
-    
+
     </div>
 
     <footer class="footer">
-
         <p>Collected Observations</p>
-
         <p>Photographed by Iman</p>
-
     </footer>
 
     <div class="cursor"></div>

@@ -769,55 +769,59 @@ nav a:hover,
 =========================== */
 
 .gallery-page {
-
     min-height: 100vh;
-
     padding: 160px 8% 100px;
-
 }
 
 .gallery-title {
-
     margin-top: 25px;
     margin-bottom: 90px;
 
-    font-family: 'Bodoni Moda', serif;
-
+    font-family: "Bodoni Moda", serif;
     font-size: clamp(3rem, 5vw, 5.5rem);
-
     font-weight: 400;
-
     line-height: 1.05;
-
-    letter-spacing: -.04em;
-
+    letter-spacing: -0.04em;
 }
 
 .gallery-title em {
-
     display: block;
-
     color: #a9a39b;
-
     font-style: italic;
-
 }
 
+/* ===========================
+   EDITORIAL GALLERY
+=========================== */
+
 .gallery-grid {
-
     display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-auto-rows: 230px;
+    grid-auto-flow: dense;
 
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-
-    gap: 28px;
-
+    gap: 30px;
+    overflow: visible;
 }
 
 .gallery-item {
     position: relative;
-    aspect-ratio: 4 / 5;
+    min-width: 0;
     overflow: visible;
     z-index: 1;
+}
+
+.gallery-item.tall {
+    grid-row: span 2;
+}
+
+.gallery-item.wide {
+    grid-column: span 2;
+}
+
+.gallery-item.large {
+    grid-column: span 2;
+    grid-row: span 2;
 }
 
 .gallery-item img {
@@ -836,27 +840,10 @@ nav a:hover,
 
     transform-origin: center bottom;
 }
+
 .gallery-item:hover {
     z-index: 20;
 }
-
-.gallery-item:hover img {
-    height: auto;
-    min-height: 100%;
-    object-fit: contain;
-
-    filter: grayscale(0%);
-    transform: translateY(-30px) scale(1.05);
-
-    background: #000000;
-
-    box-shadow:
-        0 30px 60px rgba(0, 0, 0, 0.65);
-}
-.gallery-grid {
-    overflow: visible;
-}
-/* Dim the other photos when the gallery is being hovered */
 
 .gallery-grid:hover .gallery-item:not(:hover) img {
     filter: grayscale(100%) brightness(0.35);
@@ -864,19 +851,73 @@ nav a:hover,
     opacity: 0.65;
 }
 
-
-/* Keep the selected photo bright and floating */
-
 .gallery-item:hover img {
     filter: grayscale(0%) brightness(1);
     opacity: 1;
 
-    transform: translateY(-30px) scale(1.08);
+    transform: translateY(-24px) scale(1.045);
 
     box-shadow:
         0 30px 70px rgba(0, 0, 0, 0.75);
 }
 
+/* ===========================
+   TABLET
+=========================== */
+
+@media screen and (max-width: 1000px) {
+    .gallery-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-auto-rows: 240px;
+    }
+
+    .gallery-item.large,
+    .gallery-item.wide {
+        grid-column: span 2;
+    }
+}
+
+/* ===========================
+   PHONE
+=========================== */
+
+@media screen and (max-width: 768px) {
+    .gallery-page {
+        padding: 130px 24px 80px;
+    }
+
+    .gallery-grid {
+        grid-template-columns: 1fr;
+        grid-auto-rows: auto;
+        gap: 24px;
+    }
+
+    .gallery-item,
+    .gallery-item.tall,
+    .gallery-item.wide,
+    .gallery-item.large {
+        grid-column: auto;
+        grid-row: auto;
+    }
+
+    .gallery-item img {
+        width: 100%;
+        height: auto;
+        max-height: 78vh;
+        object-fit: contain;
+    }
+
+    .gallery-grid:hover .gallery-item:not(:hover) img {
+        filter: grayscale(100%);
+        transform: none;
+        opacity: 1;
+    }
+
+    .gallery-item:hover img {
+        transform: none;
+        box-shadow: none;
+    }
+}
 .archive-notes {
 
     width: min(520px, 90%);
