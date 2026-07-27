@@ -53,51 +53,51 @@
 <div class="gallery-grid">
 
     <div class="gallery-item">
-        <img src="images/flower.jpg" alt="Flower">
+        <img src="images/flower.jpg" alt="Flower" data-title="Flower" data-year="2022">
     </div>
 
     <div class="gallery-item">
-        <img src="images/microscope.jpg" alt="Microscope">
+        <img src="images/microscope.jpg" alt="Microscope" data-title="Microscope" data-year="2023">
     </div>
 
     <div class="gallery-item">
-        <img src="images/horse.jpg" alt="Horse">
+        <img src="images/horse.jpg" alt="Horse" data-title="Horse" data-year="2025">
     </div>
 
     <div class="gallery-item">
-        <img src="images/plane.jpg" alt="Plane">
+        <img src="images/plane.jpg" alt="Plane" data-title="Plane" data-year="2024">
     </div>
 
     <div class="gallery-item">
-        <img src="images/lake.jpg" alt="Lake">
+        <img src="images/lake.jpg" alt="Lake" data-title="Lake" data-year="2023">
     </div>
 
     <div class="gallery-item">
-        <img src="images/moon.jpg" alt="Moon">
+        <img src="images/moon.jpg" alt="Moon" data-title="Moon" data-year="2024">
     </div>
 
     <div class="gallery-item">
-        <img src="images/stars.jpg" alt="Stars">
+        <img src="images/stars.jpg" alt="Stars" data-title="Stars" data-year="2024">
     </div>
 
     <div class="gallery-item">
-        <img src="images/coldplay.jpg" alt="Coldplay">
+        <img src="images/coldplay.jpg" alt="Coldplay" data-title="Coldplay" data-year="2025">
     </div>
 
     <div class="gallery-item">
-        <img src="images/ankole.jpg" alt="Ankole">
+        <img src="images/ankole.jpg" alt="Ankole" data-title="Ankole" data-year="2025">
     </div>
 
     <div class="gallery-item">
-        <img src="images/dxb.jpg" alt="Dubai">
+        <img src="images/dxb.jpg" alt="Dubai" data-title="Dubai" data-year="2026">
     </div>
 
     <div class="gallery-item">
-        <img src="images/Mt.kenya.jpg" alt="Mount Kenya">
+        <img src="images/Mt.kenya.jpg" alt="Mount Kenya" data-title="Mount Kenya" data-year="2026">
     </div>
 
     <div class="gallery-item">
-        <img src="images/birds.jpg" alt="Birds">
+        <img src="images/birds.jpg" alt="Birds" data-title="Birds" data-year="2026">
     </div>
 
 </div>
@@ -127,6 +127,32 @@
             </section>
 
     </main>
+    <div class="lightbox" id="lightbox" aria-hidden="true">
+    
+        <button class="lightbox-close" id="lightboxClose" type="button" aria-label="Close image">
+            ×
+        </button>
+    
+        <button class="lightbox-arrow lightbox-previous" id="lightboxPrevious" type="button" aria-label="Previous image">
+            ←
+        </button>
+    
+        <div class="lightbox-content">
+    
+            <img class="lightbox-image" id="lightboxImage" src="" alt="">
+    
+            <div class="lightbox-caption">
+                <p id="lightboxTitle"></p>
+                <span id="lightboxYear"></span>
+            </div>
+    
+        </div>
+    
+        <button class="lightbox-arrow lightbox-next" id="lightboxNext" type="button" aria-label="Next image">
+            →
+        </button>
+    
+    </div>
 
     <footer class="footer">
 

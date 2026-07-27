@@ -18,6 +18,100 @@ window.addEventListener("load", () => {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
+    /* Fullscreen gallery lightbox */
+
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImage = document.getElementById("lightboxImage");
+    const lightboxTitle = document.getElementById("lightboxTitle");
+    const lightboxYear = document.getElementById("lightboxYear");
+
+    const closeButton = document.getElementById("lightboxClose");
+    const previousButton = document.getElementById("lightboxPrevious");
+    const nextButton = document.getElementById("lightboxNext");
+
+    const lightboxImages = Array.from(
+        document.querySelectorAll(".gallery-item img")
+    );
+
+    let currentImageIndex = 0;
+
+    function displayLightboxImage(index) {
+        if (lightboxImages.length === 0) return;
+
+        currentImageIndex =
+            (index + lightboxImages.length) % lightboxImages.length;
+
+        const selectedImage = lightboxImages[currentImageIndex];
+
+        lightboxImage.src = selectedImage.src;
+        lightboxImage.alt = selectedImage.alt;
+
+        lightboxTitle.textContent =
+            selectedImage.dataset.title || selectedImage.alt;
+
+        lightboxYear.textContent =
+            selectedImage.dataset.year || "";
+    }
+
+    function openLightbox(index) {
+        if (!lightbox) return;
+
+        displayLightboxImage(index);
+
+        lightbox.classList.add("open");
+        lightbox.setAttribute("aria-hidden", "false");
+
+        document.body.classList.add("lightbox-open");
+    }
+
+    function closeLightbox() {
+        if (!lightbox) return;
+
+        lightbox.classList.remove("open");
+        lightbox.setAttribute("aria-hidden", "true");
+
+        document.body.classList.remove("lightbox-open");
+    }
+
+    function showPreviousImage() {
+        displayLightboxImage(currentImageIndex - 1);
+    }
+
+    function showNextImage() {
+        displayLightboxImage(currentImageIndex + 1);
+    }
+
+    lightboxImages.forEach((image, index) => {
+        image.addEventListener("click", () => {
+            openLightbox(index);
+        });
+    });
+
+    closeButton?.addEventListener("click", closeLightbox);
+    previousButton?.addEventListener("click", showPreviousImage);
+    nextButton?.addEventListener("click", showNextImage);
+
+    lightbox?.addEventListener("click", (event) => {
+        if (event.target === lightbox) {
+            closeLightbox();
+        }
+    });
+
+    document.addEventListener("keydown", (event) => {
+        if (!lightbox?.classList.contains("open")) return;
+
+        if (event.key === "Escape") {
+            closeLightbox();
+        }
+
+        if (event.key === "ArrowLeft") {
+            showPreviousImage();
+        }
+
+        if (event.key === "ArrowRight") {
+            showNextImage();
+        }
+    });
     /* Typing intro */
 
     const introLines = document.querySelectorAll(".intro-line span");
