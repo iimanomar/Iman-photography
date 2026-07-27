@@ -813,30 +813,68 @@ nav a:hover,
 
 }
 
-.gallery-grid img {
+.gallery-item {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    overflow: visible;
+    z-index: 1;
+}
 
+.gallery-item img {
     width: 100%;
-
-    aspect-ratio: 4/5;
-
+    height: 100%;
     object-fit: cover;
 
     filter: grayscale(100%);
+    opacity: 1;
 
     transition:
+        filter 0.8s ease,
+        opacity 0.8s ease,
+        transform 0.8s cubic-bezier(.22, 1, .36, 1),
+        box-shadow 0.8s ease;
 
-        filter 1s ease,
-
-        transform 1.2s cubic-bezier(.22, 1, .36, 1);
-
+    transform-origin: center bottom;
+}
+.gallery-item:hover {
+    z-index: 20;
 }
 
-.gallery-grid img:hover {
+.gallery-item:hover img {
+    height: auto;
+    min-height: 100%;
+    object-fit: contain;
 
     filter: grayscale(0%);
+    transform: translateY(-30px) scale(1.05);
 
-    transform: scale(1.02);
+    background: #000000;
 
+    box-shadow:
+        0 30px 60px rgba(0, 0, 0, 0.65);
+}
+.gallery-grid {
+    overflow: visible;
+}
+/* Dim the other photos when the gallery is being hovered */
+
+.gallery-grid:hover .gallery-item:not(:hover) img {
+    filter: grayscale(100%) brightness(0.35);
+    transform: scale(0.97);
+    opacity: 0.65;
+}
+
+
+/* Keep the selected photo bright and floating */
+
+.gallery-item:hover img {
+    filter: grayscale(0%) brightness(1);
+    opacity: 1;
+
+    transform: translateY(-30px) scale(1.08);
+
+    box-shadow:
+        0 30px 70px rgba(0, 0, 0, 0.75);
 }
 
 .archive-notes {
