@@ -591,6 +591,37 @@ nav a:hover,
 
 }
 
+.cursor::after {
+    content: "VIEW";
+
+    position: absolute;
+    inset: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: white;
+    font-size: 9px;
+    font-family: "Inter", sans-serif;
+    letter-spacing: .15em;
+
+    opacity: 0;
+    transition: opacity .3s ease;
+}
+
+.cursor.grow {
+    width: 90px;
+    height: 90px;
+
+    background: rgba(255, 255, 255, .12);
+    border-color: rgba(255, 255, 255, .5);
+}
+
+.cursor.grow::after {
+    opacity: 1;
+}
+
 /* ==============================
    TABLET
 ============================== */
@@ -851,6 +882,15 @@ nav a:hover,
     opacity: 0.65;
 }
 
+.gallery-grid:hover .gallery-item {
+    opacity: 0.45;
+    transition: opacity .35s ease;
+}
+
+.gallery-grid .gallery-item:hover {
+    opacity: 1;
+}
+
 .gallery-item:hover img {
     filter: grayscale(0%) brightness(1);
     opacity: 1;
@@ -917,17 +957,6 @@ nav a:hover,
         transform: none;
         box-shadow: none;
     }
-}
-.archive-notes {
-
-    width: min(520px, 90%);
-
-    margin: 120px auto;
-
-    color: rgba(255, 255, 255, .82);
-
-    text-align: center;
-
 }
 
 .archive-notes {
@@ -1136,6 +1165,7 @@ nav a:hover,
         line-height: 1.8;
     }
 }
+
 /* ==============================
    FULLSCREEN LIGHTBOX
 ============================== */
@@ -1147,25 +1177,22 @@ nav a:hover,
 .lightbox {
     position: fixed;
     inset: 0;
-    z-index: 5000;
+    z-index: 9999;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    padding: 70px 100px;
-
-    background: rgba(0, 0, 0, 0.94);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+    background: rgba(0, 0, 0, 0.92);
+    backdrop-filter: blur(18px);
 
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
 
     transition:
-        opacity 0.45s ease,
-        visibility 0.45s ease;
+        opacity 0.4s ease,
+        visibility 0.4s ease;
 }
 
 .lightbox.open {
@@ -1177,26 +1204,32 @@ nav a:hover,
 .lightbox-content {
     position: relative;
 
-    width: min(1150px, 82vw);
-    height: min(780px, 78vh);
-
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+
+    width: min(90vw, 1200px);
+    height: 88vh;
 }
 
 .lightbox-image {
-    width: 100%;
-    height: 100%;
+    display: block;
+
+    max-width: 90vw;
+    max-height: 80vh;
+
+    width: auto;
+    height: auto;
 
     object-fit: contain;
 
     opacity: 0;
-    transform: scale(0.94);
+    transform: scale(0.92);
 
     transition:
-        opacity 0.55s ease,
-        transform 0.7s cubic-bezier(.22, 1, .36, 1);
+        transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+        opacity 0.4s ease;
 }
 
 .lightbox.open .lightbox-image {
@@ -1205,83 +1238,80 @@ nav a:hover,
 }
 
 .lightbox-caption {
-    position: absolute;
-    left: 0;
-    bottom: -45px;
-
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 12px;
+
+    margin-top: 16px;
+
+    color: white;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
 }
 
-.lightbox-caption p {
-    font-family: "Bodoni Moda", serif;
-    font-size: 1rem;
-    color: #f4f1eb;
-}
-
+.lightbox-caption p,
 .lightbox-caption span {
-    color: rgba(244, 241, 235, 0.5);
-    font-family: "Inter", sans-serif;
-    font-size: 0.58rem;
-    letter-spacing: 0.18rem;
-}
-
-.lightbox-close,
-.lightbox-arrow {
-    position: absolute;
-    z-index: 2;
-
-    border: none;
-    background: transparent;
-    color: rgba(255, 255, 255, 0.8);
-
-    font-family: "Inter", sans-serif;
-    font-weight: 300;
-
-    transition:
-        color 0.3s ease,
-        transform 0.3s ease;
+    margin: 0;
 }
 
 .lightbox-close {
+    position: absolute;
     top: 30px;
-    right: 40px;
+    right: 35px;
+    z-index: 3;
 
-    font-size: 2.2rem;
-    line-height: 1;
-}
+    width: 52px;
+    height: 52px;
 
-.lightbox-arrow {
-    top: 50%;
-    transform: translateY(-50%);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 50%;
 
-    font-size: 1.8rem;
-}
+    background: rgba(255, 255, 255, 0.08);
+    color: white;
 
-.lightbox-previous {
-    left: 38px;
-}
+    font-size: 30px;
+    cursor: pointer;
 
-.lightbox-next {
-    right: 38px;
+    backdrop-filter: blur(12px);
+
+    transition:
+        transform 0.4s ease,
+        background 0.4s ease,
+        border-color 0.4s ease;
 }
 
 .lightbox-close:hover {
-    color: #ffffff;
-    transform: rotate(90deg);
+    transform: rotate(90deg) scale(1.12);
+    background: rgba(255, 255, 255, 0.18);
+    border-color: white;
 }
 
-.lightbox-arrow:hover {
-    color: #ffffff;
+.lightbox-arrow {
+    position: absolute;
+    top: 50%;
+    z-index: 3;
+
+    width: 52px;
+    height: 52px;
+
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.06);
+    color: white;
+
+    font-size: 24px;
+    cursor: pointer;
+
+    transform: translateY(-50%);
 }
 
-.lightbox-previous:hover {
-    transform: translate(-6px, -50%);
+.lightbox-previous {
+    left: 30px;
 }
 
-.lightbox-next:hover {
-    transform: translate(6px, -50%);
+.lightbox-next {
+    right: 30px;
 }
 
 body.lightbox-open {
@@ -1323,4 +1353,57 @@ body.lightbox-open {
         left: 0;
         bottom: -45px;
     }
+}
+
+/* ==============================
+   LIGHTBOX POLISH
+============================== */
+
+.lightbox-image {
+    transition:
+        opacity 0.35s ease,
+        transform 0.45s ease,
+        filter 0.35s ease;
+}
+
+.lightbox-image.changing {
+    opacity: 0;
+    transform: scale(0.97);
+    filter: blur(5px);
+}
+
+.lightbox-caption {
+    font-size: 0.62rem;
+}
+
+#lightboxCounter {
+    color: rgba(255, 255, 255, 0.45);
+}
+
+#lightboxTitle {
+    color: #ffffff;
+}
+
+#lightboxYear {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.lightbox-arrow {
+    transition:
+        transform 0.35s ease,
+        background 0.35s ease,
+        border-color 0.35s ease;
+}
+
+.lightbox-arrow:hover {
+    background: rgba(255, 255, 255, 0.16);
+    border-color: rgba(255, 255, 255, 0.8);
+}
+
+.lightbox-previous:hover {
+    transform: translateY(-50%) translateX(-5px);
+}
+
+.lightbox-next:hover {
+    transform: translateY(-50%) translateX(5px);
 }

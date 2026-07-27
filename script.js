@@ -18,12 +18,15 @@ window.addEventListener("load", () => {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-    /* Fullscreen gallery lightbox */
+    /* ==============================
+       FULLSCREEN GALLERY LIGHTBOX
+    ============================== */
 
     const lightbox = document.getElementById("lightbox");
     const lightboxImage = document.getElementById("lightboxImage");
     const lightboxTitle = document.getElementById("lightboxTitle");
     const lightboxYear = document.getElementById("lightboxYear");
+    const lightboxCounter = document.getElementById("lightboxCounter");
 
     const closeButton = document.getElementById("lightboxClose");
     const previousButton = document.getElementById("lightboxPrevious");
@@ -34,8 +37,9 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
     let currentImageIndex = 0;
+    let isChangingImage = false;
 
-    function displayLightboxImage(index) {
+    function updateLightboxContent(index) {
         if (
             lightboxImages.length === 0 ||
             !lightboxImage ||
@@ -58,12 +62,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
         lightboxYear.textContent =
             selectedImage.dataset.year || "";
+
+        if (lightboxCounter) {
+            const currentNumber = String(
+                currentImageIndex + 1
+            ).padStart(2, "0");
+
+            const totalNumber = String(
+                lightboxImages.length
+            ).padStart(2, "0");
+
+            lightboxCounter.textContent =
+                `${currentNumber} / ${totalNumber}`;
+        }
     }
 
     function openLightbox(index) {
         if (!lightbox) return;
 
-        displayLightboxImage(index);
+        updateLightboxContent(index);
 
         lightbox.classList.add("open");
         lightbox.setAttribute("aria-hidden", "false");
@@ -80,12 +97,26 @@ document.addEventListener("DOMContentLoaded", () => {
         document.body.classList.remove("lightbox-open");
     }
 
+    function changeLightboxImage(index) {
+        if (!lightboxImage || isChangingImage) return;
+
+        isChangingImage = true;
+        lightboxImage.classList.add("changing");
+
+        window.setTimeout(() => {
+            updateLightboxContent(index);
+
+            lightboxImage.classList.remove("changing");
+            isChangingImage = false;
+        }, 220);
+    }
+
     function showPreviousImage() {
-        displayLightboxImage(currentImageIndex - 1);
+        changeLightboxImage(currentImageIndex - 1);
     }
 
     function showNextImage() {
-        displayLightboxImage(currentImageIndex + 1);
+        changeLightboxImage(currentImageIndex + 1);
     }
 
     lightboxImages.forEach((image, index) => {
@@ -95,8 +126,16 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     closeButton?.addEventListener("click", closeLightbox);
-    previousButton?.addEventListener("click", showPreviousImage);
-    nextButton?.addEventListener("click", showNextImage);
+
+    previousButton?.addEventListener(
+        "click",
+        showPreviousImage
+    );
+
+    nextButton?.addEventListener(
+        "click",
+        showNextImage
+    );
 
     lightbox?.addEventListener("click", (event) => {
         if (event.target === lightbox) {
@@ -105,7 +144,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     document.addEventListener("keydown", (event) => {
-        if (!lightbox?.classList.contains("open")) return;
+        if (!lightbox?.classList.contains("open")) {
+            return;
+        }
 
         if (event.key === "Escape") {
             closeLightbox();
@@ -119,9 +160,13 @@ document.addEventListener("DOMContentLoaded", () => {
             showNextImage();
         }
     });
-    /* Typing intro */
 
-    const introLines = document.querySelectorAll(".intro-line span");
+    /* ==============================
+       TYPING INTRO
+    ============================== */
+
+    const introLines =
+        document.querySelectorAll(".intro-line span");
 
     introLines.forEach((line, index) => {
         const fullText = line.textContent.trim();
@@ -133,7 +178,9 @@ document.addEventListener("DOMContentLoaded", () => {
             let characterIndex = 0;
 
             const typingInterval = setInterval(() => {
-                line.textContent += fullText.charAt(characterIndex);
+                line.textContent +=
+                    fullText.charAt(characterIndex);
+
                 characterIndex++;
 
                 if (characterIndex >= fullText.length) {
@@ -143,7 +190,9 @@ document.addEventListener("DOMContentLoaded", () => {
         }, index * 900);
     });
 
-    /* Custom cursor */
+    /* ==============================
+       CUSTOM CURSOR
+    ============================== */
 
     const cursor = document.querySelector(".cursor");
 
@@ -154,27 +203,38 @@ document.addEventListener("DOMContentLoaded", () => {
         cursor.style.top = `${event.clientY}px`;
     });
 
-    document.querySelectorAll("a, img").forEach((element) => {
-        element.addEventListener("mouseenter", () => {
-            cursor?.classList.add("grow");
+    document
+        .querySelectorAll("a, button, .gallery-item img")
+        .forEach((element) => {
+            element.addEventListener("mouseenter", () => {
+                cursor?.classList.add("grow");
+            });
+
+            element.addEventListener("mouseleave", () => {
+                cursor?.classList.remove("grow");
+            });
         });
 
-        element.addEventListener("mouseleave", () => {
-            cursor?.classList.remove("grow");
-        });
-    });
+    document.documentElement.addEventListener(
+        "mouseleave",
+        () => {
+            cursor?.classList.add("hidden");
+        }
+    );
 
-    document.documentElement.addEventListener("mouseleave", () => {
-        cursor?.classList.add("hidden");
-    });
+    document.documentElement.addEventListener(
+        "mouseenter",
+        () => {
+            cursor?.classList.remove("hidden");
+        }
+    );
 
-    document.documentElement.addEventListener("mouseenter", () => {
-        cursor?.classList.remove("hidden");
-    });
+    /* ==============================
+       GALLERY IMAGE REVEAL
+    ============================== */
 
-    /* Gallery image reveal */
-
-    const galleryImages = document.querySelectorAll(".photo-wrap img");
+    const galleryImages =
+        document.querySelectorAll(".photo-wrap img");
 
     if ("IntersectionObserver" in window) {
         const observer = new IntersectionObserver(
@@ -200,3 +260,4 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 });
+
