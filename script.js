@@ -36,7 +36,14 @@ document.addEventListener("DOMContentLoaded", () => {
     let currentImageIndex = 0;
 
     function displayLightboxImage(index) {
-        if (lightboxImages.length === 0) return;
+        if (
+            lightboxImages.length === 0 ||
+            !lightboxImage ||
+            !lightboxTitle ||
+            !lightboxYear
+        ) {
+            return;
+        }
 
         currentImageIndex =
             (index + lightboxImages.length) % lightboxImages.length;
