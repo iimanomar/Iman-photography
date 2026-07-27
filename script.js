@@ -18,6 +18,17 @@ window.addEventListener("load", () => {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
+    window.addEventListener(
+        "scroll",
+        () => {
+            hoverPreview.classList.remove("visible");
+
+            hoverImages.forEach((image) => {
+                image.classList.remove("lifted");
+            });
+        },
+        { passive: true }
+    );
     /* ==============================
        FULLSCREEN GALLERY LIGHTBOX
     ============================== */
@@ -254,10 +265,122 @@ document.addEventListener("DOMContentLoaded", () => {
         galleryImages.forEach((image) => {
             observer.observe(image);
         });
-    } else {
-        galleryImages.forEach((image) => {
-            image.classList.add("in-view");
-        });
     }
-});
+else {
+    galleryImages.forEach((image) => {
+        image.classList.add("in-view");
+    });
+}
+    /* ==============================
+       LIFTED STICKER IMAGE HOVER
+    ============================== */
 
+    const hoverImages = document.querySelectorAll(
+        ".gallery-item img"
+    );
+
+    const hoverPreview = document.createElement("img");
+
+    hoverPreview.className = "hover-preview";
+    hoverPreview.alt = "";
+
+    document.body.appendChild(hoverPreview);
+
+    hoverImages.forEach((image) => {
+        image.addEventListener("mouseenter", () => {
+            const rect = image.getBoundingClientRect();
+
+            const imageRatio =
+                image.naturalWidth / image.naturalHeight;
+
+            const maxWidth = window.innerWidth * 0.5;
+            const maxHeight = window.innerHeight * 0.68;
+
+            let previewWidth = maxWidth;
+            let previewHeight = previewWidth / imageRatio;
+
+            if (previewHeight > maxHeight) {
+                previewHeight = maxHeight;
+                previewWidth = previewHeight * imageRatio;
+            }
+
+            const centreX =
+                rect.left + rect.width / 2;
+
+            const centreY =
+                rect.top + rect.height / 2;
+
+            let left =
+                centreX - previewWidth / 2;
+
+            let top =
+                centreY - previewHeight / 2;
+
+            left = Math.max(
+                20,
+                Math.min(
+                    left,
+                    window.innerWidth -
+                    previewWidth -
+                    20
+                )
+            );
+
+            const navbar =
+                document.querySelector(".navbar");
+
+            const navbarBottom =
+                navbar?.getBoundingClientRect().bottom || 0;
+
+            top = Math.max(
+                navbarBottom + 20,
+                Math.min(
+                    top,
+                    window.innerHeight -
+                    previewHeight -
+                    20
+                )
+            );
+
+            hoverPreview.src =
+                image.currentSrc || image.src;
+
+            hoverPreview.alt =
+                image.alt || "";
+
+            hoverPreview.style.width =
+                `${previewWidth}px`;
+
+            hoverPreview.style.height =
+                `${previewHeight}px`;
+
+            hoverPreview.style.left =
+                `${left}px`;
+
+            hoverPreview.style.top =
+                `${top}px`;
+
+            image.classList.add("lifted");
+            hoverPreview.classList.add("visible");
+        });
+
+        image.addEventListener("mouseleave", () => {
+            image.classList.remove("lifted");
+            hoverPreview.classList.remove("visible");
+        });
+    });
+
+    /* Hide preview while scrolling */
+
+    window.addEventListener(
+        "scroll",
+        () => {
+            hoverPreview.classList.remove("visible");
+
+            hoverImages.forEach((image) => {
+                image.classList.remove("lifted");
+            });
+        },
+        { passive: true }
+    );
+});

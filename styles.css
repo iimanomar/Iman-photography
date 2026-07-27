@@ -1390,3 +1390,74 @@ body.lightbox-open {
 .lightbox-next:hover {
     transform: translateY(-50%) translateX(5px);
 }
+/* ==============================
+   LIFTED STICKER IMAGE
+============================== */
+
+.hover-preview {
+    position: fixed;
+    z-index: 9998;
+
+    display: block;
+
+    width: auto;
+    height: auto;
+    max-width: none;
+    max-height: none;
+
+    object-fit: contain;
+    pointer-events: none;
+
+    opacity: 0;
+    visibility: hidden;
+
+    filter: grayscale(0%);
+    transform: translateY(8px) scale(0.96);
+
+    box-shadow:
+        0 35px 90px rgba(0, 0, 0, 0.82);
+
+    transition:
+        opacity 0.15s ease,
+        visibility 0.15s ease,
+        transform 0.22s cubic-bezier(.22, 1, .36, 1);
+}
+
+.hover-preview.visible {
+    opacity: 1;
+    visibility: visible;
+
+    transform:
+        translateY(-14px) rotate(-0.5deg) scale(1);
+}
+
+/* Original image disappears,
+   leaving its black grid space */
+
+.gallery-item img.lifted {
+    opacity: 0 !important;
+}
+
+.gallery-item {
+    background: #000000;
+}
+
+/* Darken the other gallery images */
+
+.gallery-grid:has(.gallery-item img.lifted) .gallery-item img:not(.lifted) {
+    filter: grayscale(100%) brightness(0.3);
+    opacity: 0.5;
+    transform: scale(0.98);
+}
+
+/* Disable floating hover on phones */
+
+@media screen and (max-width: 768px) {
+    .hover-preview {
+        display: none;
+    }
+
+    .gallery-item img.lifted {
+        opacity: 1 !important;
+    }
+}
